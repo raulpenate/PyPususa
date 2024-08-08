@@ -1,13 +1,33 @@
 # Building an interpreter
 
-## Lexical analysis
-- Is when we convert a sequence of characters into tokens.
-- Identifies basic components of our software. 
-- Each token has a name and a value.
+### Installation
+## Using script
+Follow the steps below to install this language in your system.
+- Clone the repository in your machine - 
+```sh
+git clone --depth=1 https://github.com/raulpenate/futebol
+```
+- Change to cloned directory and make `setup.sh` executable - 
+```sh
+cd futebol
+chmod +x setup.sh
+```
 
-## Tokens
-- Tokens are the building block of a programming language.
-- These can be variables, keywords, numbers, identifiers, special characters and more.
-- Usually are defined as ENUM (name & value).
+- Run `setup.sh` -
+```sh
+./setup.sh
+```
 
-**Fun fact:** Chat GTP is similar, turning words into tokens and tokens into a numeric value.
+## Manual installation
+
+```python
+python -m venv venv
+source venv/bin/active
+pip install -r requirements.txt
+```
+
+### Command to run my tests
+```python
+mypy . && python -m unittest discover  -p "*_test.py"
+```
+

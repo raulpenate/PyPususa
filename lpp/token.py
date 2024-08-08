@@ -20,7 +20,7 @@ class TokenType(Enum):
     RPAREN = auto()
     SEMICOLON = auto()
 
-class TOKEN(NamedTuple):
+class Token(NamedTuple):
     token_type: TokenType
     literal: str
 
