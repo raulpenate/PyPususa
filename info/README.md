@@ -1,5 +1,9 @@
 # Theory
 
+> [!NOTE]
+> Most of the info was extracted from this book [Crafting Interpreters](https://craftinginterpreters.com/), please consider support him buying this book if you enjoy what you see.
+
+
 You can’t compile your compiler using itself
 yet, but if you have another compiler for your
 language written in some other language, you
@@ -12,7 +16,7 @@ compiler. This is called “bootstrapping” from
 the image of pulling yourself up by your own
 bootstraps.
 
-![Alt text](URL or path to the image)
+![pl map](https://raw.githubusercontent.com/raulpenate/futebol/main/info/img/mountain.jpg)
 
 
 ## Parts of a language
@@ -33,6 +37,3 @@ bootstraps.
 
 # Functionality
 `__init__` help us to let `mypy` that we're in a package.
-
-### Sources
-- [Crafting Interpreters](https://craftinginterpreters.com/)
