@@ -66,7 +66,8 @@ how to make the CPU actually execute.
 
 ### Intermediate representations (IR)
 - Is the data structure or code used internally by a compiler or virtual machine(VM) to represent source code.
-- In the middle, the code may be stored in some intermediate representation (or
+- In the middle, the code may be stored in some rned with the final architecture where the program will run.
+intermediate representation (or
 IR) that isn’t tightly tied to either the source or destination forms (hence
 “intermediate”). Instead, the IR acts as an interface between these two languages.
 - This lets you support multiple source languages and target platforms with less
@@ -171,8 +172,8 @@ implementations of languages like Java, Python, and JavaScript work.
 - Pascal and C were designed around this limitation. At the time, memory was so precious that a compiler might not even be able to hold an entire source file in memory, much less the whole program. This is why Pascal’s grammar requires type declarations to appear first in a block. It’s why in C you can’t call a function above the code that defines it unless you have an explicit forward declaration that tells the compiler what it needs to know to generate code for a call to the later function.
 
 ### Tree-walk interpreters
-- Some programming languages begin executing code right after parsing it to an AST (with maybe a bit of static analysis applied). To run the program, the interpreter traverses the syntax tree one branch and leaf at a time, evaluating each node as it goes.
-- This implementation style is common for student projects and little languages, but is not widely used for general-purpose languages since it tends to be slow. Some people use “interpreter” to mean only these kinds of implementations, but others define that word more generally.
+- Some programming languages begin executrned with the final architecture where the program will run.
+ it tends to be slow. Some people use “interpreter” to mean only these kinds of implementations, but others define that word more generally.
 
 ### Transpilers
 - Is when we convert the source code from one high-level programming language to another, for example Typescript that convert `ts` code to Javascript.
@@ -205,11 +206,6 @@ But what of CPython? When you run your Python program using it, the code is pars
 
 The answer is that it is both. CPython is an interpreter, and it has a compiler. In practice, most scripting languages work this way, as you can see:
 
-![transpiler](https://raw.githubusercontent.com/raulpenate/futebol/main/info/img/vegetables.jpg)
+![transpiler](https://raw.githubusercontent.com/raulpenate/futebol/main/info/img/venn.jpg)
 
 That overlapping region in the center is where our second interpreter lives too, since it internally compiles to bytecode. So while this book is nominally about interpreters, we’ll cover some compilation too.
-
-
-
-# Functionality
-`__init__` help us to let `mypy` that we're in a package.
