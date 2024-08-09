@@ -2,8 +2,15 @@
 
 > [!NOTE]
 > - This README will be more enjoyable if you use dark mode.
-> - I extracted the info from [Crafting Interpreters](https://craftinginterpreters.com/), please consider supporting the autor (Robert Nystrom, creator of Dart) if you enjoy what you see.
+> - I extracted the info from [Crafting Interpreters](https://craftinginterpreters.com/), please consider supporting the autor ([Robert Nystrom](https://journal.stuffwithstuff.com/), creator of [Dart](https://dart.dev/)) if you enjoy what you see.
 
+
+## What's a compiler?
+You can think of the compiler as a __pipeline__ where each stage’s job is to __organize
+the data representing the user’s code in a way that makes the next stage simpler
+to implement__. 
+- __The front end__ of the pipeline is specific to the __source language__ the program is written in. 
+- __The back end__ is concerned with the __final architecture__ where the program will run.
 
 You can’t compile your compiler using itself
 yet, but if you have another compiler for your
@@ -13,17 +20,10 @@ Now you can use the compiled version of
 your own compiler to compile future
 versions of itself and you can discard the
 original one compiled from the other
-compiler. This is called “bootstrapping” from
+compiler. This is called “__bootstrapping__” from
 the image of pulling yourself up by your own
 bootstraps.
 
-
-## What's a compiler?
-You can think of the compiler as a pipeline where each stage’s job is to organize
-the data representing the user’s code in a way that makes the next stage simpler
-to implement. The front end of the pipeline is specific to the source language
-the program is written in. The back end is concerned with the final architecture
-where the program will run.
 
 ## Parts of a language/compiler
 
@@ -109,10 +109,7 @@ pennyArea = 0.4417860938;
 ```
 
 ### Code generation (code gen)
--  __Generating code__ (or __code gen__), where “code” here usually refers to the
-kind of primitive assembly-like instructions a CPU runs and not the kind of
-“source code” a human might want to read.
-- We have a decision to make. Do we generate instructions for a real CPU or a
+-  __Generating code__ (or __code gen__), whe instructions for a real CPU or a
 virtual one? If we generate real machine code, we get an executable that the OS
 can load directly onto the chip. Native code is lightning fast, but generating it is
 a lot of work. Today’s architectures have piles of instructions, complex
@@ -178,10 +175,9 @@ implementations of languages like Java, Python, and JavaScript work.
 - This implementation style is common for student projects and little languages, but is not widely used for general-purpose languages since it tends to be slow. Some people use “interpreter” to mean only these kinds of implementations, but others define that word more generally.
 
 ### Transpilers
-- Is when we convert the source code from one high-level programming language to another, for example Typescripts that convert `ts` code to Javascript.
+- Is when we convert the source code from one high-level programming language to another, for example Typescript that convert `ts` code to Javascript.
 ![ts to js](https://raw.githubusercontent.com/raulpenate/futebol/main/info/img/tstojs.jpg)
 - Writing a complete back end for a language can be a lot of work. If you have some existing generic IR to target, you could bolt your front end onto that. Otherwise, it seems like you’re stuck. __But what if you treated some other source language as if it were an intermediate representation?__
-![transpiler](https://raw.githubusercontent.com/raulpenate/futebol/main/info/img/transpiler.jpg)
 
 - You write a front end for your language. Then, in the back end, instead of doing all the work to lower the semantics to some primitive target language, you produce a string of valid source code for some other language that’s about as high level as yours. Then, you use the existing compilation tools for that language as your escape route off the mountain and down to something you can execute.
 - They used to call this a __source-to-source__ compiler or a __transcompiler__. After
@@ -189,6 +185,29 @@ the rise of languages that compile to JavaScript in order to run in the browser,
 they’ve affected the hipster sobriquet __transpiler__.
 
 ### Just-in-time compilation
+- This last one is less a shortcut and more a dangerous alpine scramble best reserved for experts. The fastest way to execute code is by compiling it to machine code, but you might not know what architecture your end user’s machine supports. What to do?
+- You can do the same thing that the HotSpot Java Virtual Machine (JVM), Microsoft’s Common Language Runtime (CLR), and most JavaScript interpreters do. On the end user’s machine, when the program is loaded—either from source in the case of JS, or platform-independent bytecode for the JVM and CLR—you compile it to native code for the architecture their computer supports. Naturally enough, this is called __just-in-time__ compilation. Most hackers just say “JIT”, pronounced like it rhymes with “fit”.
+- The most sophisticated JITs insert profiling hooks into the generated code to see which regions are most performance critical and what kind of data is flowing through them. Then, over time, they will automatically recompile those hot spots with more advanced optimizations.
+
+## Compilers and Interpreters
+What’s the difference between a compiler and an interpreter? It turns out this is like asking the difference between a fruit and a vegetable. That seems like a binary either-or choice, but actually “fruit” is a [botanical](https://www.eufic.org/en/healthy-living/article/is-a-tomato-a-fruit-or-a-vegetable-and-why#:~:text=A%20botanist%20would,the%20tomato%20plant.) term and “vegetable” is [culinary](https://www.eufic.org/en/healthy-living/article/is-a-tomato-a-fruit-or-a-vegetable-and-why#:~:text=A%20nutritionist%2C%20chef%20or,jams.%C2%A01%2C2). One does not strictly imply the negation of the other. There are fruits that aren’t vegetables (apples) and vegetables that aren’t fruits (carrots), but also edible plants that are both fruits and vegetables, like tomatoes.
+![transpiler](https://raw.githubusercontent.com/raulpenate/futebol/main/info/img/vegetables.jpg)
+We can say:
+- __Compiling__ is an _implementation technique_ that involves translating a source language to some other—usually lower-level—form. When you generate bytecode or machine code, you are compiling. When you transpile to another high-level language, you are compiling too.
+- When we say a language implementation “is a __compiler__”, we mean it translates source code to some other form but doesn’t execute it. The user has to take the resulting output and run it themselves.
+- Conversely, when we say an implementation “is an __interpreter__”, we mean it takes in source code and executes it immediately. It runs programs “from source”.
+
+Like apples and oranges, some implementations are clearly compilers and not interpreters. GCC and Clang take your C code and compile it to machine code. An end user runs that executable directly and may never even know which tool was used to compile it. So those are compilers for C.
+
+In older versions of Matz’s canonical implementation of Ruby, the user ran Ruby from source. The implementation parsed it and executed it directly by traversing the syntax tree. No other translation occurred, either internally or in any user-visible form. So this was definitely an interpreter for Ruby.
+
+But what of CPython? When you run your Python program using it, the code is parsed and converted to an internal bytecode format, which is then executed inside the VM. From the user’s perspective, this is clearly an interpreter—they run their program from source. But if you look under CPython’s scaly skin, you’ll see that there is definitely some compiling going on.
+
+The answer is that it is both. CPython is an interpreter, and it has a compiler. In practice, most scripting languages work this way, as you can see:
+
+![transpiler](https://raw.githubusercontent.com/raulpenate/futebol/main/info/img/vegetables.jpg)
+
+That overlapping region in the center is where our second interpreter lives too, since it internally compiles to bytecode. So while this book is nominally about interpreters, we’ll cover some compilation too.
 
 
 
