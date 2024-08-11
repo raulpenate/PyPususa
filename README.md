@@ -1,6 +1,6 @@
 # Building an interpreter
 
-You learn [here](https://github.com/raulpenate/futebol/blob/main/info/README.md) more about the theory that learned about building an interpreter.
+You learn [here](https://github.com/raulpenate/futebol/blob/main/info/README.md) more about the theory that I learned about building an interpreter.
 
 ### Installation
 ## Using script

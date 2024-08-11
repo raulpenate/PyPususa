@@ -11,6 +11,7 @@ class TokenType(Enum):
     EOF = auto()
     FUNCTION = auto()
     IDENT = auto()
+    ILLEGAL = auto()
     INT = auto()
     LBRACE = auto()
     LET = auto()

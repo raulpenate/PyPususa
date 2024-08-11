@@ -209,3 +209,6 @@ The answer is that it is both. CPython is an interpreter, and it has a compiler.
 ![transpiler](https://raw.githubusercontent.com/raulpenate/futebol/main/info/img/venn.jpg)
 
 That overlapping region in the center is where our second interpreter lives too, since it internally compiles to bytecode. So while this book is nominally about interpreters, we’ll cover some compilation too.
+
+# Things about python
+Vectors are list
