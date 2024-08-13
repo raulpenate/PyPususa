@@ -251,3 +251,64 @@ class LexerTest(TestCase):
         ]
 
         self.assertEqual(tokens, expected_tokens)
+        
+    def test_variable_snake(self) -> None:
+        source: str = '''
+            bolado number_one = 1;
+        '''
+        lexer: Lexer = Lexer(source)
+
+        tokens: List[Token] = []
+        for i in range(5):
+            tokens.append(lexer.next_token())
+        
+        expected_tokens: List[Token] = [
+            Token(TokenType.LET, 'bolado'),
+            Token(TokenType.IDENT, 'number_one'),
+            Token(TokenType.ASSIGN, '='),
+            Token(TokenType.INT, '1'),
+            Token(TokenType.SEMICOLON, ';'),
+        ]
+
+        self.assertEqual(tokens, expected_tokens)
+        
+
+    def test_variable_snake_case_int(self) -> None:
+        source: str = '''
+            maje number_1 = 1;
+        '''
+        lexer: Lexer = Lexer(source)
+
+        tokens: List[Token] = []
+        for i in range(5):
+            tokens.append(lexer.next_token())
+        
+        expected_tokens: List[Token] = [
+            Token(TokenType.LET, 'maje'),
+            Token(TokenType.IDENT, 'number_1'),
+            Token(TokenType.ASSIGN, '='),
+            Token(TokenType.INT, '1'),
+            Token(TokenType.SEMICOLON, ';'),
+        ]
+
+        self.assertEqual(tokens, expected_tokens)
+        
+    def test_variable_with_int(self) -> None:
+        source: str = '''
+            chunche number1 = 1;
+        '''
+        lexer: Lexer = Lexer(source)
+
+        tokens: List[Token] = []
+        for i in range(5):
+            tokens.append(lexer.next_token())
+        
+        expected_tokens: List[Token] = [
+            Token(TokenType.LET, 'chunche'),
+            Token(TokenType.IDENT, 'number1'),
+            Token(TokenType.ASSIGN, '='),
+            Token(TokenType.INT, '1'),
+            Token(TokenType.SEMICOLON, ';'),
+        ]
+
+        self.assertEqual(tokens, expected_tokens)
