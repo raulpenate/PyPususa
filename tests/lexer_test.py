@@ -41,7 +41,7 @@ class LexerTest(TestCase):
             Token(TokenType.MULT, '*'),
             Token(TokenType.LT, '<'),
             Token(TokenType.GT, '>'),
-            Token(TokenType.NEG, '!'),
+            Token(TokenType.NOT, '!'),
         ]
 
         self.assertEqual(tokens, expected_tokens)
@@ -140,7 +140,6 @@ class LexerTest(TestCase):
                 x + y;
             };
         '''
-        
         lexer: Lexer = Lexer(source)
         
         tokens: List[Token] = []
@@ -170,7 +169,6 @@ class LexerTest(TestCase):
 
     def test_function_call(self) -> None:
         source: str = 'bolado resultado = suma(dos, tres);'
-
         lexer: Lexer = Lexer(source)
 
         tokens: List[Token] = []
@@ -202,7 +200,6 @@ class LexerTest(TestCase):
                 vuelto nel;
             }
         '''
-        
         lexer: Lexer = Lexer(source)
         
         tokens: List[Token] = []
@@ -229,4 +226,28 @@ class LexerTest(TestCase):
             Token(TokenType.RBRACE, '}'),
         ]
         
+        self.assertEqual(tokens, expected_tokens)
+
+    def test_two_character_operators(self) -> None:
+        source: str = '''
+            10 == 10;
+            10 != 9;
+        '''
+        lexer: Lexer = Lexer(source)
+
+        tokens: List[Token] = []
+        for i in range(8):
+            tokens.append(lexer.next_token())
+        
+        expected_tokens: List[Token] = [
+            Token(TokenType.INT, '10'),
+            Token(TokenType.EQ, '=='),
+            Token(TokenType.INT, '10'),
+            Token(TokenType.SEMICOLON, ';'),
+            Token(TokenType.INT, '10'),
+            Token(TokenType.NOT_EQ, '!='),
+            Token(TokenType.INT, '9'),
+            Token(TokenType.SEMICOLON, ';'),
+        ]
+
         self.assertEqual(tokens, expected_tokens)
