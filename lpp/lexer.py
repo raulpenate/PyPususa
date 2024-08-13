@@ -20,13 +20,19 @@ class Lexer:
         
         token_dict: Dict[str, TokenType] = {
             r"^=$": TokenType.ASSIGN,
+            r"^!$": TokenType.NEG,
             r"^\+$": TokenType.PLUS,
+            r"^\*$": TokenType.MULT,
+            r"^\-$": TokenType.MINUS,
+            r"^\/$": TokenType.DIV,
             r"^\($": TokenType.LPAREN,
             r"^\)$": TokenType.RPAREN,
             r"^{$": TokenType.LBRACE,
             r"^}$": TokenType.RBRACE,
             r"^,$": TokenType.COMMA,
             r"^;$": TokenType.SEMICOLON,
+            r"^>$": TokenType.GT,
+            r"^<$": TokenType.LT,
             r"^$": TokenType.EOF,
         }
 
@@ -62,6 +68,7 @@ class Lexer:
         return bool(match(r'^\d$', character))
     
     def _read_character(self) -> None:
+        # We read the source order of strs
         if self._read_position >= len(self._source):
             self._character = ''
         else:
@@ -76,6 +83,7 @@ class Lexer:
         while self._is_number(self._character):
             self._read_character()
 
+        # We cut the number by sending the [initial position:current position]
         return self._source[initial_position: self._position]
     
     def _read_identifier(self) -> str:
@@ -84,7 +92,7 @@ class Lexer:
         while self._is_letter(self._character):
             self._read_character()
 
-        # We cut the word by sending the [initial position:last position]
+        # We cut the word by sending the [initial position:current position]
         return self._source[initial_position: self._position]
     
     def _skip_whitespace(self) -> None:
