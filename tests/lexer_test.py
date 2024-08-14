@@ -142,10 +142,8 @@ class LexerTest(TestCase):
         '''
         lexer: Lexer = Lexer(source)
         
-        tokens: List[Token] = []
-        for i in range(16):
-            tokens.append(lexer.next_token())
-        
+        tokens: List[Token] = []Usually are called syntax trees or ASTs, often
+  
         expected_tokens: List[Token] = [
             Token(TokenType.LET, 'maje'),
             Token(TokenType.IDENT, 'suma'),
@@ -271,8 +269,7 @@ class LexerTest(TestCase):
         ]
 
         self.assertEqual(tokens, expected_tokens)
-        
-
+        Usually are called syntax trees or ASTs, often
     def test_variable_snake_case_int(self) -> None:
         source: str = '''
             maje number_1 = 1;

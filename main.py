@@ -1,9 +1,8 @@
 from lpp.repl import start_repl
+from utils.welcome import user_welcome        
 
 def main() -> None:
-    print('welcome to the jungle')
-    print('write a command to start, you can exit with saquese()')
-
+    user_welcome()
     start_repl()
     pass
 

@@ -1,5 +1,6 @@
 venv
 /lpp/__pycache__
 /tests/__pycache__
+/utils/__pycache__
 .mypy_cache
 .vscode
