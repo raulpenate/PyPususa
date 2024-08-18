@@ -59,6 +59,14 @@ how to make the CPU actually execute.
 - Usually are called syntax trees or ASTs, often just trees
 ![parser tree](https://raw.githubusercontent.com/raulpenate/futebol/main/info/img/parser.jpg)
 
+```python
+# Program
+
+variable <identifier> = <expression>; # statement
+
+# Let Statement
+```
+
 ### Static analysis
 - This is the binding or resolution.
 - If our language is typed, this is when we type check.
