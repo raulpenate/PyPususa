@@ -62,11 +62,13 @@ how to make the CPU actually execute.
 
 ```python
 # Program
-
 variable <identifier> = <expression>; # statement
-
 # Let Statement
 ```
+    
+> [!TIP]
+> This [Video](https://www.youtube.com/watch?v=bxpc9Pp5pZM) explains very nicely what a parser is and part of its history
+ 
 
 ### Static analysis
 - This is the binding or resolution.
