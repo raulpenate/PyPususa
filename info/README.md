@@ -57,6 +57,7 @@ how to make the CPU actually execute.
 - Our syntax gets grammar, the ability to compose larger expressions and statements out of smaller parts.
 - Takes a flat sequence of tokens aed builds a tree structure that mirror the nested nature of grammar.
 - Usually are called syntax trees or ASTs, often just trees
+
 ![parser tree](https://raw.githubusercontent.com/raulpenate/futebol/main/info/img/parser.jpg)
 
 ```python
