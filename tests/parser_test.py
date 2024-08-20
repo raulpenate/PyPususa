@@ -15,3 +15,5 @@ class ParserText(TestCase):
 
         self.assertIsNotNone(program)
         self.assertIsInstance(program, Program)
+
+        

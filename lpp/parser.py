@@ -8,4 +8,6 @@ class Parser:
         self._lexer = lexer
 
     def parse_program(self) -> Program:
-        pass
+        program: Program = Program(statements=[])
+
+        return program 

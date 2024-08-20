@@ -1,3 +1,16 @@
+# Parser:
+English and Spanish are SOV languages (Subject, Object, Verb), our structure is simple:
+```python
+bolado x = 5;
+LesStament <Identifier> = __Expression__
+```
+```mermaid
+graph TD;
+    Program-->LetStatement
+    LetStatement-->Identifier
+    LetStatement-->Expression
+```
+
 # Building an interpreter
 
 You learn [here](https://github.com/raulpenate/futebol/blob/main/info/README.md) more about the theory that I learned about building an interpreter.
