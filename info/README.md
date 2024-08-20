@@ -54,6 +54,7 @@ how to make the CPU actually execute.
 **Fun fact:** Chat GTP is similar, turning words into tokens and tokens into a numeric value.
 
 ### Parsing
+- We break down the text into smaller parts that we can process and understand in our language.
 - Our syntax gets grammar, the ability to compose larger expressions and statements out of smaller parts.
 - Takes a flat sequence of tokens aed builds a tree structure that mirror the nested nature of grammar.
 - Usually are called syntax trees or ASTs, often just trees
@@ -67,7 +68,11 @@ variable <identifier> = <expression>; # statement
 ```
     
 > [!TIP]
-> This [Video](https://www.youtube.com/watch?v=bxpc9Pp5pZM) explains very nicely what a parser is and part of its history
+> These videos to understand very nicely what a parser is and part of its history:
+> - [Parsing Explained - Computerphile](https://www.youtube.com/watch?v=bxpc9Pp5pZM)
+> - [EXTRA BITS: How Chomsky Fits In - Computerphile](https://www.youtube.com/watch?v=Airi85CPdPk)
+> - [Angle Brackets - Computerphile](https://www.youtube.com/watch?v=1IdlBFaifcs)
+> - [Yoda Parsing - Computerphile](https://www.youtube.com/watch?v=ggxEzR2VRNU)
  
 
 ### Static analysis
