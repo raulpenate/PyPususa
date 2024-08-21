@@ -61,14 +61,15 @@ class Parser:
         if not self._expected_token(TokenType.ASSIGN):
             return None
 
-        while self._current_token.token_type != TokenType.SEMICOLON:
+        while self._current_token.token_type != TokenType.SEMICOLON and self._current_token.token_type != TokenType.EOF:
             self._advance_tokens()
 
         return let_statement
 
     def _parse_statement(self) -> Optional[Statement]:
         assert self._current_token is not None
+
         if self._current_token.token_type == TokenType.LET:
             return self._parse_let_statement()
-        else:
-            return None
+
+        return None
