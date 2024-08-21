@@ -1,8 +1,12 @@
-from typing import Optional
+from typing import (
+    Optional,
+    List
+)
 
 from lpp.ast import (
     Program,
     LetStatement,
+    ReturnStatement,
     Identifier,
     Statement,
 ) 
@@ -19,9 +23,15 @@ class Parser:
         self._lexer = lexer
         self._current_token: Optional[Token] = None
         self._peek_token: Optional[Token] = None
+        self._errors: List[str] = []
 
         self._advance_tokens()
         self._advance_tokens()
+
+    
+    @property
+    def errors(self) -> List[str]:
+        return self._errors
 
     def parse_program(self) -> Program:
         program: Program = Program(statements=[])
@@ -47,7 +57,14 @@ class Parser:
             
             return True 
 
+        self._expected_token_error(token_type)
         return False
+
+    def _expected_token_error(self, token_type: TokenType) -> None:
+        assert self._peek_token is not None
+        error = f'Next token expected to be token {token_type} but it got {self._peek_token.token_type}'
+
+        self._errors.append( error)
     
     def _parse_let_statement(self) -> Optional[LetStatement]:
         assert self._current_token is not None
@@ -65,11 +82,25 @@ class Parser:
             self._advance_tokens()
 
         return let_statement
+    
+    def _parse_return_statement(self) -> Optional[ReturnStatement]:
+        assert self._current_token is not None
+        return_statement = ReturnStatement(token=self._current_token)
+
+        self._advance_tokens()
+        # TODO finish when we know how to parse expressions
+        while self._current_token.token_type != TokenType.SEMICOLON:
+            self._advance_tokens()
+
+        return return_statement
 
     def _parse_statement(self) -> Optional[Statement]:
         assert self._current_token is not None
 
         if self._current_token.token_type == TokenType.LET:
             return self._parse_let_statement()
+        
+        if self._current_token.token_type == TokenType.RETURN:
+            return self._parse_return_statement()
 
         return None

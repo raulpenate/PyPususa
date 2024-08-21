@@ -3,7 +3,7 @@ from unittest import TestCase
 from lpp.ast import (
     LetStatement,
     Program,
-    Identifier,
+    ReturnStatement,
 ) 
 from lpp.lexer import Lexer
 from lpp.parser import Parser
@@ -66,3 +66,28 @@ class ParserText(TestCase):
             names.append(statement.name.value)
         
         self.assertEqual(names, expected_names)
+
+    def test_parse_errors(self) -> None:
+        source: str = 'bolado foo 5'
+        lexer: Lexer = Lexer(source)
+        parser: Parser = Parser(lexer)
+
+        program: Program = parser.parse_program()
+        print(parser.errors)
+
+        self.assertEqual(len(parser.errors), 1)
+
+    def test_return_statement(self) -> None:
+        source: str = '''
+            vuelto 5;
+            vuelto foo;
+        '''
+        lexer: Lexer = Lexer(source)
+        parser: Parser = Parser(lexer)
+
+        program: Program = parser.parse_program()
+
+        self.assertEqual(len(program.statements), 2)
+        for statement in program.statements:
+            self.assertEqual(statement.token_literal(), 'vuelto')
+            self.assertIsInstance(statement, ReturnStatement)
