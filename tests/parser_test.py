@@ -13,7 +13,7 @@ from typing_extensions import (
     List,
 )
 
-class ParserText(TestCase):
+class ParserTest(TestCase):
     
     def test_parse_program(self) -> None:
         source: str = 'bolado x = 5;'
